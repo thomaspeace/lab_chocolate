@@ -26,4 +26,10 @@ public class ChocolateService {
         return chocolateRepository.save(chocolate);
     }
 
+//    EXT
+    public Optional<Chocolate> getChocolateById(Long id) {
+        return chocolateRepository.findById(id);
+    }
+
+
 }
