@@ -21,8 +21,8 @@ public class Estate {
     @Column(name = "country")
     private String country;
 
-    @OneToMany
-    @JoinColumn(name = "estate_id")
+    @OneToMany(mappedBy = "estate")
+    @JsonIgnoreProperties({"estate"})
     private List<Chocolate> chocolates;
 
     public Estate(String name, String country) {
