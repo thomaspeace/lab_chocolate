@@ -2,18 +2,22 @@ package com.bnta.chocolate.models;
 
 import javax.persistence.*;
 
-
+@Entity
+@Table(name = "chocolates")
 public class Chocolate {
 
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "cocoa_percentage")
     private int cocoaPercentage;
 
-
+    @ManyToOne
+    @JoinColumn(name = "chocolate_id")
     private Estate estate;
 
     public Chocolate(String name, int cocoaPercentage, Estate estate) {
