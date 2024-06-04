@@ -2,7 +2,6 @@ package com.bnta.chocolate.services;
 
 import com.bnta.chocolate.models.Chocolate;
 import com.bnta.chocolate.models.ChocolateDTO;
-import com.bnta.chocolate.models.Estate;
 import com.bnta.chocolate.repositories.ChocolateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,8 +28,12 @@ public class ChocolateService {
 
     public Chocolate createChocolateDTO(ChocolateDTO chocolate) {
         long estateID = chocolate.getEstateId();
-        Chocolate newChocolate = new Chocolate(chocolate.getName(), chocolate.getCocoaPercentage(), estateService.getEstateById(estateID).get());
-        return chocolateRepository.save(newChocolate);
+        if(estateService.getEstateById(estateID).isPresent()){
+            Chocolate newChocolate = new Chocolate(chocolate.getName(), chocolate.getCocoaPercentage(), estateService.getEstateById(estateID).get());
+            return chocolateRepository.save(newChocolate);
+        } else {
+            return null;
+        }
     }
 
 //    EXT
@@ -42,7 +45,5 @@ public class ChocolateService {
         List<Chocolate> chocolates = chocolateRepository.findByCocoaPercentageGreaterThan(cocoaPercentage);
         return chocolates;
     }
-
-
 
 }
