@@ -18,6 +18,10 @@ public class EstateService {
         return estateRepository.findAll();
     }
 
+    public Estate createEstate(Estate estate) {
+        return estateRepository.save(estate);
+    }
+
     // EXT - Get by ID
     public Optional<Estate> getEstateById(Long id) {
         return estateRepository.findById(id);

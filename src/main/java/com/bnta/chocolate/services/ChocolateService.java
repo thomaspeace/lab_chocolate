@@ -15,8 +15,15 @@ public class ChocolateService {
     @Autowired
     ChocolateRepository chocolateRepository;
 
+    @Autowired
+    EstateService estateService;
+
     public List<Chocolate> getAllChocolates() {
         return chocolateRepository.findAll();
+    }
+
+    public Chocolate createChocolate(Chocolate chocolate) {
+        return chocolateRepository.save(chocolate);
     }
 
 }
