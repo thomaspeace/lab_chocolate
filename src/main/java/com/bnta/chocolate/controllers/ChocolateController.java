@@ -5,11 +5,9 @@ import com.bnta.chocolate.services.ChocolateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.StyledEditorKit;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,15 +18,22 @@ public class ChocolateController {
     @Autowired
     ChocolateService chocolateService;
 
-//    INDEX
-    @GetMapping
-    public ResponseEntity<List<Chocolate>> getAllChocolates() {
-        List<Chocolate> chocolates = chocolateService.getAllChocolates();
-        if(chocolates.isEmpty()) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+//    INDEX localhost:8080/chocolates?cocoa_percentage=50
+//    INDEX localhost:8080/chocolates
+        @GetMapping
+        public ResponseEntity<List<Chocolate>> getAllChocolates(@RequestParam Optional<Integer> cocoa_percentage) {
+            List<Chocolate> chocolates;
+            if (cocoa_percentage.isPresent()) {
+                chocolates = chocolateService.getChocolateWithCocoaGreater(cocoa_percentage.get());
+            }  else {
+                chocolates = chocolateService.getAllChocolates();
+            }
+            if (chocolates.isEmpty()) {
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(chocolates, HttpStatus.OK);
         }
-        return new ResponseEntity<>(chocolates, HttpStatus.OK);
-    }
+
 
 //    SHOW
     @GetMapping(value = "/{id}")
@@ -40,5 +45,6 @@ public class ChocolateController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
+
 
 }

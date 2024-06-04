@@ -24,7 +24,7 @@ public class DataLoader implements ApplicationRunner {
         Estate cadbury = new Estate("Cadbury", "UK");
         Estate mars = new Estate("Mars", "USA");
 
-        Chocolate dairyMilk = new Chocolate("Dairy Milk", 50, cadbury);
+        Chocolate dairyMilk = new Chocolate("Dairy Milk", 55, cadbury);
         Chocolate marsBar = new Chocolate("Mars Bar", 45, mars);
 
         estateService.createEstate(cadbury);
