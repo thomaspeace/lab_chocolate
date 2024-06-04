@@ -26,6 +26,4 @@ public class EstateService {
     public Optional<Estate> getEstateById(Long id) {
         return estateRepository.findById(id);
     }
-
-    // EXT - Save
 }

@@ -1,7 +1,10 @@
 package com.bnta.chocolate.controllers;
 
 import com.bnta.chocolate.models.Chocolate;
+import com.bnta.chocolate.models.ChocolateDTO;
+import com.bnta.chocolate.models.Estate;
 import com.bnta.chocolate.services.ChocolateService;
+import com.bnta.chocolate.services.EstateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +20,8 @@ public class ChocolateController {
 
     @Autowired
     ChocolateService chocolateService;
+
+    EstateService estateService;
 
 //    INDEX localhost:8080/chocolates?cocoa_percentage=50
 //    INDEX localhost:8080/chocolates
@@ -46,5 +51,20 @@ public class ChocolateController {
         }
     }
 
+    //    POST
+    @PostMapping
+    public ResponseEntity<Chocolate> createChocolate(@RequestBody ChocolateDTO chocolate) {
+        Chocolate createdChocolate = chocolateService.createChocolateDTO(chocolate);
+        return new ResponseEntity<>(createdChocolate, HttpStatus.CREATED);
+
+//        EXT - Returning NULL value
+//            if(estateService.getEstateById(chocolate.getEstateId()).isPresent()) {
+//                Chocolate createdChocolate = chocolateService.createChocolateDTO(chocolate);
+//                return new ResponseEntity<>(createdChocolate, HttpStatus.CREATED);
+//            } else {
+//                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+//            }
+
+    }
 
 }
